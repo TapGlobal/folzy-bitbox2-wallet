@@ -18,7 +18,7 @@
         <div style="line-height: 1.50rem;" class="text-sm ml-2" @click="removeTag(index)">x</div>
       </div>
     </div>
-    <input v-model="tagValue" @keyup.enter="addTag" @keyup.space="addTag" />
+    <input v-model="tagValue" @keyup.enter="addTag"  @keyup.space="addTag" />
   </div>
 </template>
 
@@ -54,6 +54,14 @@ export default {
         el.focus()
       },
     },
+  },
+  watch: {
+    // whenever question changes, this function will run
+    tagValue(newQuestion, oldQuestion) {
+      if (newQuestion) {
+        this.addTag()
+      }
+    }
   },
 }
 </script>
