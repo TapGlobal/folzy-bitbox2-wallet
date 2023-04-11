@@ -59,7 +59,7 @@ export default {
     // whenever question changes, this function will run
     tagValue(newQuestion, oldQuestion) {
       if (newQuestion) {
-        this.addTag()
+        // this.addTag()
       }
     }
   },

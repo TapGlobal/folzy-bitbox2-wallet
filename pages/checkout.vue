@@ -192,6 +192,7 @@
 
               <div>
                 <TagsInput @tags="checkLength" />
+                 <div class="text-orange-500 text-sm text-left mt-1">Please press enter/return ⏎ </div>
               </div>
             </div>
             <div class="flex items-left mb-14">
